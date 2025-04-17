@@ -7,8 +7,7 @@
 Enrollment_add_HousingStatus(
   Enrollment_extra_Client_Exit_HH_CL_AaE,
   PH = data_types$Project$ProjectType$ph,
-  Referrals = HMISdata::load_hmis_parquet("Referrals.parquet"),
-  prioritization_colors
+  Referrals = HMISdata::load_hmis_parquet("Referrals.parquet")
 )
 }
 \arguments{
