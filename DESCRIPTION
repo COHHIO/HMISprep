@@ -19,6 +19,6 @@ Imports:
     rlang,
     utils,
     UU
-Remotes: COHHIO/clarity.looker, COHHIO/HMIS, yogat3ch/UU
+Remotes: COHHIO/clarity.looker, COHHIO/HMISdata, yogat3ch/UU
 URL: https://github.com/trevinflick/HMISprep
 BugReports: https://github.com/trevinflick/HMISprep/issues
