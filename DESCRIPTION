@@ -9,16 +9,16 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
-    clarity.looker,
     data.table,
     dplyr,
     duckplyr,
+    HMIS
     HMISdata,
     lubridate,
     purrr,
     rlang,
     utils,
     UU
-Remotes: COHHIO/clarity.looker, COHHIO/HMISdata, yogat3ch/UU
+Remotes: COHHIO/HMISdata, COHHIO/HMIS, yogat3ch/UU
 URL: https://github.com/trevinflick/HMISprep
 BugReports: https://github.com/trevinflick/HMISprep/issues

@@ -25,7 +25,7 @@ prep_client <- function() {
 
 Client_redact <- function(Client) {
   Client |>
-    clarity.looker::Client_filter() |>
+    Client_filter() |>
     dplyr::mutate(
       FirstName = dplyr::case_when(
         NameDataQuality %in% c(8, 9) ~ "DKR",
@@ -82,4 +82,25 @@ Client_add_UniqueID <- function(Client, Client_UniqueIDs) {
   out <- dplyr::left_join(Client, dplyr::distinct(Client_UniqueIDs, PersonalID, UniqueID), by = "PersonalID")
   UU::join_check(Client, out)
   out
+}
+
+#' @title Filter out specific Clients
+#' @description Often used to filter test/training demo clients
+#' @param x \code{(data.frame)} With PersonalID or UniqueID column
+#' @param clients \code{(character)} of PersonalIDs to filter with names corresponding their UniqueIDs (Clarity only)
+#' @family Client functions
+#' @return \code{(data.frame)} without `clients_to_filter`
+#' @export
+
+Client_filter <- function(x, clients = getOption("HMIS")$clients_to_filter) {
+
+  if (is.data.frame(x) && UU::is_legit(clients)) {
+    nms <- na.omit(stringr::str_extract(colnames(x), UU::regex_or(c("PersonalID", "UniqueID"))))
+    if (UU::is_legit(nms))
+      for (nm in nms) {
+        x <- dplyr::filter(x, !(!!rlang::sym(nm)) %in% !!purrr::when(nm, . == "PersonalID" ~ clients, ~ names(clients)))
+      }
+  }
+
+  x
 }
