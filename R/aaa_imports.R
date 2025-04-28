@@ -4,5 +4,4 @@
 #' @importFrom rlang "%||%" "%|%"
 #' @importFrom dplyr "%>%"
 #' @importFrom UU "%|0|%"
-#' @importFrom clarity.looker dirs
 NULL
