@@ -12,7 +12,7 @@ Imports:
     data.table,
     dplyr,
     duckplyr,
-    HMIS
+    HMIS,
     HMISdata,
     lubridate,
     purrr,
