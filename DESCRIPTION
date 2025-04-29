@@ -18,6 +18,7 @@ Imports:
     lubridate,
     purrr,
     rlang,
+    tictoc,
     utils,
     UU
 Remotes: COHHIO/HMISdata, COHHIO/HMIS, yogat3ch/UU
