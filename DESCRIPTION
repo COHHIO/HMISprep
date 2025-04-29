@@ -14,6 +14,7 @@ Imports:
     duckplyr,
     HMIS,
     HMISdata,
+    janitor,
     lubridate,
     purrr,
     rlang,
