@@ -13,6 +13,7 @@
 # hohs = heads of household
 # adults = all adults in a household
 # clients = all members of the household
+#' @export
 
 prep_cohorts <- function(Enrollment_extra_Client_Exit_HH_CL_AaE,
                     rm_dates) {
