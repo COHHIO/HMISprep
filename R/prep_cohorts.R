@@ -16,7 +16,9 @@
 #' @export
 
 prep_cohorts <- function(Enrollment_extra_Client_Exit_HH_CL_AaE,
-                    rm_dates) {
+                    rm_dates = load_dates()) {
+  Enrollment_extra_Client_Exit_HH_CL_AaE <- HMISdata::load_hmis_parquet("Enrollment_extra_Client_Exit_HH_CL_AaE.parquet")
+
   vars <- list(we_want = c(
     "PersonalID",
     "UniqueID",
