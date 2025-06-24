@@ -105,3 +105,88 @@ make_linked_df <- function(.data, link_text, unlink = FALSE, new_ID, type = NULL
 
   out
 }
+
+link_type <- function(x, link_text, link_chr, new_ID) {
+  .type <- x %||% switch(link_chr,
+                         UniqueID = "profile",
+                         EnrollmentID = "enrollment",
+                         ProjectName = "program_edit",
+                         ProgramName = "program_edit",
+                         AgencyName = "agency_switch",
+                         AgencyAdministrator = "admin") %||% switch(rlang::expr_deparse(new_ID),
+                                                                    UniqueID = "profile",
+                                                                    EnrollmentID = "enrollment",
+                                                                    ProjectName = "program_edit",
+                                                                    ProgramName = "program_edit",
+                                                                    AgencyName = "agency_switch",
+                                                                    AgencyAdministrator = "admin") %||%
+    ifelse(any(stringr::str_detect(link_text, "[A-F]"), na.rm = TRUE), "profile", "enrollment")
+  UU::match_letters(.type, "profile", "enrollment", "program_edit", "agency_switch", "admin", n = 5)
+}
+
+
+is_link <- function(.col) {
+  any(stringr::str_detect(.col, "^\\<a"), na.rm = TRUE) || isTRUE(try(inherits(.col[[1]], "shiny.tag"), silent = TRUE))
+}
+
+make_link <- function(ID, link_text, type = NULL, chr = TRUE) {
+  href <- getOption("HMIS")$Clarity_URL %||% "https://cohhio.clarityhs.com"
+  .type = link_type(type, link_text, rlang::expr_deparse(link_text))
+  sf_args <- switch(
+    .type,
+    profile = list(
+      "<a href=\"%s/client/%s/profile\" target=\"_blank\">%s</a>",
+      href,
+      ID,
+      link_text
+    ),
+    enrollment = list(
+      "<a href=\"%s/clients/%s/program/%s/enroll\" target=\"_blank\">%s</a>",
+      href,
+      ID,
+      link_text,
+      link_text
+    ),
+    agency_switch = list(
+      "<a href=\"%s/manage/agency/switch/%s\" target=\"_blank\">%s</a>",
+      href,
+      ID,
+      link_text
+    ),
+    admin = list(
+      "<a href=\"%s/manage/staff/edit/%s\" target=\"_blank\">%s</a>",
+      href,
+      ID,
+      link_text
+    ),
+    program_edit = list(
+      "<a href=\"%s/manage/program/edit/%s\" target=\"_blank\">%s</a>",
+      href,
+      ID,
+      link_text)
+  )
+
+  if (chr) {
+    out <- do.call(sprintf, sf_args)
+  } else {
+    href <- httr::parse_url(href)
+    if (!identical(length(ID), length(link_text))) {
+      l <- list(PersonalID = ID, ID = link_text)
+      big <- which.max(purrr::map_int(l, length))
+      i <- seq_along(l)
+      small <- subset(i, subset = i != big)
+      assign(names(l)[small], rep(l[[small]], length(l[[big]])))
+    }
+    out <- purrr::map2(ID, link_text, ~{
+      href$path <- switch(.type,
+                          profile = c("client",.x, "profile"),
+                          enrollment = c("clients",.x, "program", .y, "enroll"),
+                          agency_switch = c("manage","agency", "switch", .x),
+                          program_edit = c("manage","program", "edit", .x),
+                          admin = c("manage", "staff", "edit", .x)
+      )
+      htmltools::tags$a(href = httr::build_url(href), .y, target = "_blank")
+    })
+  }
+  out
+}
