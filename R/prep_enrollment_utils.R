@@ -180,8 +180,8 @@ Enrollment_add_HousingStatus <-
 
 
 
-    if (!any(.cols$id %in% .nms) || !all(.cols$req %in% .nms))
-      stop_with_instructions("data requires PersonalID or UniqueID & the following columns:\n", paste0(.cols$req, collapse = ",\n"))
+    # if (!any(.cols$id %in% .nms) || !all(.cols$req %in% .nms))
+    #   stop_with_instructions("data requires PersonalID or UniqueID & the following columns:\n", paste0(.cols$req, collapse = ",\n"))
 
     # Get the Last enrollment
     last_enroll <- Enrollment_extra_Client_Exit_HH_CL_AaE |>
