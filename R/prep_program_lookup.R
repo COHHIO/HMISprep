@@ -9,7 +9,7 @@ prep_program_lookup <- function() {
   program_lookup <- HMISdata::load_looker_data(filename = "Program_lookup",
                                                col_types = HMISdata::look_specs$Program_lookup)
 
-  program_lookup |>
+  program_lookup <- program_lookup |>
     dplyr::mutate(dplyr::across(c(dplyr::ends_with("Active")), ~dplyr::if_else(.x %in% c("Active"), TRUE, FALSE))) |>
     dplyr::rename(AgencyAdministrator = `Property Manager`,
                   StartDate = `Start Date`,
