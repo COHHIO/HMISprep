@@ -14,13 +14,20 @@ prep_program_lookup <- function() {
     dplyr::rename(AgencyAdministrator = `Property Manager`,
                   StartDate = `Start Date`,
                   EndDate = `End Date`,
-                  LastUpdatedDate = `Last Updated Date`) |>
+                  LastUpdatedDate = `Last Updated Date`)
+
+  program <- program_lookup |>
     dplyr::group_by(ProgramName) |>
     dplyr::filter(StartDate == max(StartDate)) |>
     dplyr::ungroup() |>
     dplyr::arrange(dplyr::desc(AgencyAdministrator)) |>
     dplyr::distinct(ProgramID, ProgramName, .keep_all = TRUE) |>
-    make_linked_df(ProgramName, type = "program_edit") |>
+    make_linked_df(ProgramName, type = "program_edit")
+
+  agency <- program_lookup |>
+    dplyr::filter(is.na(ProgramID))
+
+  program_lookup <- rbind(program, agency) |>
     make_linked_df(AgencyName, type = "agency_switch") |>
     make_linked_df(AgencyAdministrator, type = "admin")
 
