@@ -9,15 +9,7 @@
 #' @export
 col_cats = list(Client = list(
   gender = c(
-    "Woman",
-    "Man",
-    "NonBinary",
-    "CulturallySpecific",
-    "Transgender",
-    "Questioning",
-    "DifferentIdentity",
-    "GenderNone",
-    "DifferentIdentityText"
+    "Sex"
   ),
   race = c(
     "AmIndAKNative",
