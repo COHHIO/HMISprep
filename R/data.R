@@ -15,7 +15,7 @@ col_cats = list(Client = list(
     "AmIndAKNative",
     "Asian",
     "BlackAfAmerican",
-    "HispanicLatinaeo",
+    "HispanicLatinao",
     "MidEastNAfrican",
     "NativeHIPacific",
     "White",
