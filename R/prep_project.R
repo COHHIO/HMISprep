@@ -56,6 +56,11 @@ prep_project <- function() {
 
   HMISdata::upload_hmis_data(Project, file_name = "Project.parquet", format = "parquet")
   HMISdata::upload_hmis_data(APs, file_name = "APs.parquet", format = "parquet")
+  HMISdata::upload_hmis_data(APs,
+                             bucket = "shiny-data-cohhio",
+                             folder = "RME",
+                             file_name = "APs.parquet",
+                             format = "parquet")
   HMISdata::upload_hmis_data(mahoning_projects, file_name = "mahoning_projects.parquet", format = "parquet")
 }
 
