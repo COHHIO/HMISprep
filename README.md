@@ -1,26 +1,49 @@
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # HMISprep
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
-The goal of HMISprep is to ...
+`HMISprep` processes and cleans Homeless Management Information System
+(HMIS) data for reporting and analysis. Provides functions to validate,
+transform, and prepare HMIS datasets according to HUD reporting
+specifications. Designed as part of a data pipeline that feeds
+‘HMISserve’ backend reporting and Shiny applications, enabling
+standardized data quality checks and automated reporting workflows.
 
 ## Installation
 
-You can install the development version of HMISprep from [GitHub](https://github.com/) with:
+You can install the development version of HMISprep from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("pak")
-pak::pak("trevinflick/HMISprep")
+pak::pak("COHHIO/HMISprep")
 ```
 
-## Example
+## Prerequisites
 
-This is a basic example which shows you how to solve a common problem:
+This package requires AWS credentials to access S3 buckets. You can
+configure credentials using one of these methods:
+
+1.  **AWS credentials file** (`~/.aws/credentials`)
+2.  **Environment variables** (`AWS_ACCESS_KEY_ID`,
+    `AWS_SECRET_ACCESS_KEY`)
+
+See the [aws.s3 package
+documentation](https://github.com/cloudyr/aws.s3) for more details on
+authentication.
+
+## Usage
+
+### Cleaning HMIS CSV Files
 
 ``` r
-library(HMISprep)
-## basic example code
-```
+library(HMISdata)
 
+# Prep Enrollment dataframe
+prep_enrollment()
+```

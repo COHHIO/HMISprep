@@ -1,9 +1,14 @@
 Package: HMISprep
-Title: What the Package Does (One Line, Title Case)
+Title: Prepare and Clean HMIS Data for Reporting
 Version: 0.0.0.9000
 Authors@R: 
     person("Trevin", "Flickinger", , "trevinflickinger@cohhio.org", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: Processes and cleans Homeless Management Information System (HMIS) 
+    data for reporting and analysis. Provides functions to validate, transform, 
+    and prepare HMIS datasets according to HUD reporting specifications. Designed 
+    as part of a data pipeline that feeds 'HMISserve' backend reporting and 
+    Shiny applications, enabling standardized data quality checks and automated 
+    reporting workflows.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
