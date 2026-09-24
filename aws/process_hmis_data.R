@@ -26,7 +26,7 @@ tryCatch({
   HMISdata::upload_hmis_data(Disabilities, file_name = "Disabilities.parquet", format = "parquet")
   rm(Disabilities)
   gc(verbose = FALSE)
-  
+
   # Referrals
   HMISprep::prep_referrals()
   gc(verbose = FALSE)
@@ -75,6 +75,16 @@ tryCatch({
     dplyr::mutate(Score = dplyr::if_else(stringr::str_detect(Name, "B-PAT"), Total, Score))
   HMISdata::upload_hmis_data(Scores, file_name = "Scores.parquet", format = "parquet")
   rm(Scores)
+  gc(verbose = FALSE)
+
+  # Assessment-to-enrollment links
+  Scores_enrollments <- HMISdata::load_looker_data(
+    filename = "Client_Scores_DQ_Enrollment",
+    col_types = HMISdata::look_specs$Client_Scores_DQ_Enrollment
+  ) |>
+    dplyr::distinct()
+  HMISdata::upload_hmis_data(Scores_enrollments, file_name = "Scores_enrollments.parquet", format = "parquet")
+  rm(Scores_enrollments)
   gc(verbose = FALSE)
 
   # Users
