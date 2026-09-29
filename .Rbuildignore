@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^HMISprep\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
